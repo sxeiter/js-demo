@@ -1,3 +1,5 @@
+'use strict'
+
 const positionLatitude = 4;
 const positionLongitude = 2;
 
