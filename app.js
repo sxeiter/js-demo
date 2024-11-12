@@ -1,8 +1,22 @@
-const positionLatitude = 4;
-const positionLongitude = 2;
+let ru = 'ru'
+let en = 'en'
+let de;
+let sp;
+const sayHi = prompt(`Выберите ваш язык из списка: ${ru}, ${en}, ${de}, ${sp}`)
 
-const destinationLatitude = 3;
-const destinationLongitude = 5;
-
-let distance = (positionLatitude - positionLongitude)**2 + (destinationLatitude - destinationLongitude)**2;
-console.log(distance)
+switch(sayHi) {
+    case ru:
+        console.log('Добрый день!');
+        break;
+    case en:
+        console.log('Hello!');
+        break;
+    case de:
+        console.log('Guten tag!');
+        break;
+    case sp:
+        console.log('Hola!');
+        break;
+    default:
+        console.log('что-то на японском');
+}
