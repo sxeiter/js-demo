@@ -1,8 +1,7 @@
-const positionLatitude = 4;
-const positionLongitude = 2;
+const hasLicence = true;
+const age = 23;
+const isDrunk = false;
+const canDrive = (age >= 18 && hasLicence && !isDrunk);
 
-const destinationLatitude = 3;
-const destinationLongitude = 5;
 
-let distance = (positionLatitude - positionLongitude)**2 + (destinationLatitude - destinationLongitude)**2;
-console.log(distance)
+console.log(`Вы ${canDrive ? 'можете' : 'не можете'} сесть за машину? `)
