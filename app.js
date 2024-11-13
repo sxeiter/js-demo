@@ -1,22 +1,7 @@
-let ru = 'ru'
-let en = 'en'
-let de;
-let sp;
-const sayHi = prompt(`Выберите ваш язык из списка: ${ru}, ${en}, ${de}, ${sp}`)
+const hasLicence = true;
+const age = 23;
+const isDrunk = false;
+const canDrive = (age >= 18 && hasLicence && !isDrunk);
 
-switch(sayHi) {
-    case ru:
-        console.log('Добрый день!');
-        break;
-    case en:
-        console.log('Hello!');
-        break;
-    case de:
-        console.log('Guten tag!');
-        break;
-    case sp:
-        console.log('Hola!');
-        break;
-    default:
-        console.log('что-то на японском');
-}
+
+console.log(`Вы ${canDrive ? 'можете' : 'не можете'} сесть за машину? `)
