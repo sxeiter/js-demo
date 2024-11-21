@@ -18,3 +18,4 @@ function currencyConverter(amount, fromCurrency, toCurrency) {
     }
     return amount * rate;
 }
+// через switch не стал делать)
