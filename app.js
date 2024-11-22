@@ -1,8 +1,13 @@
-const positionLatitude = 4;
-const positionLongitude = 2;
+let arr = [1, 40, -5, 10, 0];
 
-const destinationLatitude = 3;
-const destinationLongitude = 5;
+for (let i = 0; i < arr.length; i++) {
+  for (let j = i + 1; j < arr.length; j++) {
+    if (arr[i] > arr[j]) {
+      let temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+  }
+}
 
-let distance = (positionLatitude - positionLongitude)**2 + (destinationLatitude - destinationLongitude)**2;
-console.log(distance)
+console.log(arr);
