@@ -1,13 +1,36 @@
-let arr = [1, 40, -5, 10, 0];
+// const score = [1,4,6,3,12];
 
-for (let i = 0; i < arr.length; i++) {
-  for (let j = i + 1; j < arr.length; j++) {
-    if (arr[i] > arr[j]) {
-      let temp = arr[i];
-      arr[i] = arr[j];
-      arr[j] = temp;
-    }
-  }
-}
+// score.forEach((el, i) => {
+//   console.log(`индекс ${i + 1} и элемент ${el}`)
+// })
 
-console.log(arr);
+// const transactions = [10, -7, 50, -10, 100];
+
+// console.log(transactions.map((el) => el * 60));
+
+
+// const transactions = [10, -7, 50, -10, 100];
+// const positive = transactions
+//     .filter(el => {
+//   // if (el > 0) {
+//   //   return el
+//   // }
+//     return el > 0;
+//     })
+//     .map(el => el * 60)
+// console.log(positive)
+
+// const prices = [[100, 200], [120, 100], [200, 350]];
+
+// const res = prices
+// .map(product => product[1] - product[0])
+// .filter(price => price > 0);
+
+// console.log(res);
+
+const transactions = [10, -7, 50, -10, 100];
+
+const balance = transactions.reduce((acc, el) => acc + el, 0)
+
+console.log(balance);
+
