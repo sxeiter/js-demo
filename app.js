@@ -5,7 +5,7 @@ function encryptPassword(password) {
 
     for (let i = 0; i < length; i++) {
         if (i < length / 2) {
-            encryptedArray[i] = passwordArray[length - 1 - i]; .
+            encryptedArray[i] = passwordArray[length - 1 - i]; 
         } else {
             encryptedArray[i] = passwordArray[i]; 
         }
