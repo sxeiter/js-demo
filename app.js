@@ -1,8 +1,16 @@
-const positionLatitude = 4;
-const positionLongitude = 2;
+function reverseFilter(arr, removeFunc) {
+    return arr.reduce((acc, el) => {
+        if (!removeFunc(el)) {
+            acc.push(el)
+        }
+        return acc;
+    }, [])
+}
 
-const destinationLatitude = 3;
-const destinationLongitude = 5;
+function isGreaterThanFive(el) {
+    return el > 5;
+}
 
-let distance = (positionLatitude - positionLongitude)**2 + (destinationLatitude - destinationLongitude)**2;
-console.log(distance)
+const inputArray = [3, 6, 9, 2];
+const outputArray = reverseFilter(inputArray, isGreaterThanFive);
+console.log(outputArray);
