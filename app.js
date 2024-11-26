@@ -12,27 +12,31 @@ function isLeapYear(year) {
     return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
 }
 
-function isValidDate([day, month, year]) {
-    if (day < 1 || day > 31) {
-        return false;
+function getDaysInMonth(month, year) {
+    if (month === 2) {
+        return isLeapYear(year) ? 29 : 28;
     }
+    return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
+}
+
+function isValidDate([day, month, year]) {
+    
     if (month < 1 || month > 12) {
         return false;
     }
+
     year = year < 100 ? year + 2000 : year;
-    if (year < 1 || year > 9999) {
+
+    if (year < 1900 || year > new Date().getFullYear()) {
         return false;
     }
-    if (isLeapYear(year) && month === 2 && day > 29) {
-        return false;
-    }
-    if (!isLeapYear(year) && month === 2 && day > 28) {
-        return false;
-    }
-    return true;
+
+    const maxDaysInMonth = getDaysInMonth(month, year);
+    return day >= 1 && day <= maxDaysInMonth;
 }
 
 function convertDate([day, month, year]) {
+    year = year < 100 ? year + 2000 : year;
     return `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year.toString().padStart(4, '0')}`;
 }
 
