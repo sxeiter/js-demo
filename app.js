@@ -1,24 +1,31 @@
 function isValidCardNumber(cardNumber) {
-    const digits = cardNumber.replace(/\D/g, '');
-    if (digits.length != 16) {
-        return false; 
+    if (cardNumber.includes('-')) {
+        cardNumber = cardNumber.split('-').join('');
     }
-
+    const digits = cardNumber.replace(/\D/g, '');
+    
     let sum = 0;
-    for (let i = digits.length - 1; i >= 0; i--) {
+    const isEven = digits.length % 2 === 0 ? 0 : 1; 
+    for (let i = isEven; i < digits.length; i += 2) {
         let digit = parseInt(digits[i], 10);
-        
-        if ((i + 1) % 2 === 0) {
-            digit *= 2;
-            if (digit > 9) {
-                digit -= 9;
-            }
+        digit *= 2;
+        if (digit > 9) {
+            digit -= 9;
         }
         sum += digit;
     }
+
+    for (let j = 1 - isEven; j < digits.length; j += 2) {
+        sum += parseInt(digits[j], 10);
+    }
+
     return sum % 10 === 0;
 }
 
 console.log(isValidCardNumber("4561-2612-1234-5467")); 
 console.log(isValidCardNumber("1234-5678-9012-3456")); 
 console.log(isValidCardNumber("4111-1111-1111-1111"));
+console.log(isValidCardNumber("234s834503458353"));
+console.log(isValidCardNumber("2342834503458353"));
+console.log(isValidCardNumber("4561-2612-1234-5464"));
+console.log(isValidCardNumber("4561-2612-1534-5464"));
