@@ -1,58 +1,47 @@
-function isValidDate(dateStr) {
-    const checkDate = (day, month, year) => {
-        const fullYear = year < 100 ? year + 2000 : year;
-        if (day >= 1 && day <= 31 && month >= 1 && month <= 12 && fullYear) {
-            return true;
-        }
-        return false;
-    };
-
-    if (dateStr.includes('.')) {
-        const partsDot = dateStr.split('.');
-        if (partsDot.length === 3) {
-            const day = parseInt(partsDot[0], 10);
-            const month = parseInt(partsDot[1], 10);
-            const year = parseInt(partsDot[2], 10);
-            return checkDate(day, month, year);
-        }
-    } else if (dateStr.includes('/')) {
-        const partsSlash = dateStr.split('/');
-        if (partsSlash.length === 3) {
-            const day = parseInt(partsSlash[0], 10);
-            const month = parseInt(partsSlash[1], 10);
-            const year = parseInt(partsSlash[2], 10);
-            return checkDate(day, month, year);
-        }
+function stringToArray(dateStr) {
+    const separators = ['.', '/', '-'];
+    const separator = separators.find(separator => dateStr.includes(separator));
+    if (!separator) {
+        return null;
     }
-    return false;
+    const parts = dateStr.split(separator);
+    return parts.map(part => parseInt(part, 10));
 }
 
-function convertDate(dateStr) {
-    let day, month, year;
+function isLeapYear(year) {
+    return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+}
 
-    if (dateStr.includes('.')) {
-        const parts = dateStr.split('.');
-        day = parseInt(parts[0], 10);
-        month = parseInt(parts[1], 10);
-        year = parseInt(parts[2], 10);
-    } 
-    else if (dateStr.includes('/')) {
-        const parts = dateStr.split('/');
-        day = parseInt(parts[0], 10);
-        month = parseInt(parts[1], 10);
-        year = parseInt(parts[2], 10);
+function isValidDate([day, month, year]) {
+    if (day < 1 || day > 31) {
+        return false;
     }
+    if (month < 1 || month > 12) {
+        return false;
+    }
+    year = year < 100 ? year + 2000 : year;
+    if (year < 1 || year > 9999) {
+        return false;
+    }
+    if (isLeapYear(year) && month === 2 && day > 29) {
+        return false;
+    }
+    if (!isLeapYear(year) && month === 2 && day > 28) {
+        return false;
+    }
+    return true;
+}
 
-    const fullYear = year < 100 ? year + 2000 : year;
-
-    return `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${fullYear.toString().padStart(4, '0')}`;
+function convertDate([day, month, year]) {
+    return `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year.toString().padStart(4, '0')}`;
 }
 
 function filterAndConvertDates(dateList) {
     const validDates = [];
     for (const dateStr of dateList) {
-        if (isValidDate(dateStr)) {
-            validDates.push(convertDate(dateStr));
+        const parts = stringToArray(dateStr);
+        if (parts && isValidDate(parts)) {
+            validDates.push(convertDate(parts));
         }
     }
     return validDates;
