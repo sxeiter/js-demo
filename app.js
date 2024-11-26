@@ -1,36 +1,63 @@
-// const score = [1,4,6,3,12];
+function isValidDate(dateStr) {
+    const checkDate = (day, month, year) => {
+        const fullYear = year < 100 ? year + 2000 : year;
+        if (day >= 1 && day <= 31 && month >= 1 && month <= 12 && fullYear) {
+            return true;
+        }
+        return false;
+    };
 
-// score.forEach((el, i) => {
-//   console.log(`индекс ${i + 1} и элемент ${el}`)
-// })
+    if (dateStr.includes('.')) {
+        const partsDot = dateStr.split('.');
+        if (partsDot.length === 3) {
+            const day = parseInt(partsDot[0], 10);
+            const month = parseInt(partsDot[1], 10);
+            const year = parseInt(partsDot[2], 10);
+            return checkDate(day, month, year);
+        }
+    } else if (dateStr.includes('/')) {
+        const partsSlash = dateStr.split('/');
+        if (partsSlash.length === 3) {
+            const day = parseInt(partsSlash[0], 10);
+            const month = parseInt(partsSlash[1], 10);
+            const year = parseInt(partsSlash[2], 10);
+            return checkDate(day, month, year);
+        }
+    }
+    return false;
+}
 
-// const transactions = [10, -7, 50, -10, 100];
+function convertDate(dateStr) {
+    let day, month, year;
 
-// console.log(transactions.map((el) => el * 60));
+    if (dateStr.includes('.')) {
+        const parts = dateStr.split('.');
+        day = parseInt(parts[0], 10);
+        month = parseInt(parts[1], 10);
+        year = parseInt(parts[2], 10);
+    } 
+    else if (dateStr.includes('/')) {
+        const parts = dateStr.split('/');
+        day = parseInt(parts[0], 10);
+        month = parseInt(parts[1], 10);
+        year = parseInt(parts[2], 10);
+    }
 
+    const fullYear = year < 100 ? year + 2000 : year;
 
-// const transactions = [10, -7, 50, -10, 100];
-// const positive = transactions
-//     .filter(el => {
-//   // if (el > 0) {
-//   //   return el
-//   // }
-//     return el > 0;
-//     })
-//     .map(el => el * 60)
-// console.log(positive)
+    return `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${fullYear.toString().padStart(4, '0')}`;
+}
 
-// const prices = [[100, 200], [120, 100], [200, 350]];
+function filterAndConvertDates(dateList) {
+    const validDates = [];
+    for (const dateStr of dateList) {
+        if (isValidDate(dateStr)) {
+            validDates.push(convertDate(dateStr));
+        }
+    }
+    return validDates;
+}
 
-// const res = prices
-// .map(product => product[1] - product[0])
-// .filter(price => price > 0);
-
-// console.log(res);
-
-const transactions = [10, -7, 50, -10, 100];
-
-const balance = transactions.reduce((acc, el) => acc + el, 0)
-
-console.log(balance);
-
+const dates = ["10/02/1982", "11/12/2023", "29.02.20", "31.04.2022", "00.13.22", 'sasd', "41.12.2023"];
+const filteredDates = filterAndConvertDates(dates);
+console.log(filteredDates);
