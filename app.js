@@ -1,8 +1,13 @@
-const positionLatitude = 4;
-const positionLongitude = 2;
+function createQuery(params) {
+    const urlParams = Object.entries(params).map(([key, value]) => `${key}=${value}`);
+    return urlParams.join('&');
+};
 
-const destinationLatitude = 3;
-const destinationLongitude = 5;
+const newObj = {
+    search: 'Вася',
+    surname: 'пупкин',
+    take: 10,
+};
 
-let distance = (positionLatitude - positionLongitude)**2 + (destinationLatitude - destinationLongitude)**2;
-console.log(distance)
+console.log(createQuery(newObj));
+
